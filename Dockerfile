@@ -18,6 +18,7 @@ RUN uv sync --no-editable
 
 FROM python:3.12-slim
 
+WORKDIR /app
 
 # Make the venv active by default
 ENV VIRTUAL_ENV=/app/.venv
@@ -26,7 +27,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 
 # Copy the environment, but not the source code
 COPY --from=builder --chown=app:app /app/.venv /app/.venv
-COPY . .
+COPY --from=builder /app/tests ./tests
 
 # Run the application
 CMD ["uvicorn", "cc_simple_server.server:app", "--reload", "--host", "0.0.0.0", "--port", "8000"]
