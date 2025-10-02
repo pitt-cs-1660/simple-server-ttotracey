@@ -11,7 +11,7 @@ COPY pyproject.toml ./
 RUN uv sync --no-install-project --no-editable
 
 # Copy the project into the intermediate image
-COPY . /cc_simple_server ./
+COPY . ./
 
 # Sync the project
 RUN uv sync --no-editable
